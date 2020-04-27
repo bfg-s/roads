@@ -1,0 +1,37 @@
+{
+    "name": "lar/roads",
+    "description": "Laravel Application React Layout Roads",
+    "type": "library",
+    "keywords": ["laravel", "application", "react", "layout", "roads"],
+    "homepage": "https://bitbucket.org/lar-repo/roads",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "xsaven",
+            "email": "dev.xsaven@gmail.com"
+        }
+    ],
+    "prefer-stable": true,
+    "require": {
+        "php": ">=7.1.0"
+    },
+    "require-dev": {},
+    "autoload": {
+        "psr-4": {
+            "Lar\\Roads\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Lar\\Roads\\ServiceProvider"
+            ],
+            "aliases": {
+                "Road": "Lar\\Roads\\Facade"
+            }
+        }
+    }
+}
