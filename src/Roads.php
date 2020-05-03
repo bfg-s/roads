@@ -640,7 +640,6 @@ class Roads
 
         if ($closure instanceof \Closure) {
 
-//            dump($props);
             \Route::group($props, function (Router $router) use ($closure) {
 
                 $this->last_rout = $router;
@@ -653,11 +652,6 @@ class Roads
                     static::class => $this
                 ]);
             });
-
-//            if (isset($props['middleware']) && in_array('lang', $props['middleware'])) {
-//
-//                dump($props, \Layout::nowLang());
-//            }
         }
 
         else if (is_string($closure)) {
@@ -716,15 +710,6 @@ class Roads
         }
 
         $return = \Route::$method(...$props);
-
-        //dd($return->methods);
-
-//        if (isset($return->action['middleware']) && in_array('lang', $return->action['middleware']) && in_array('GET', $return->methods)) {
-//
-//            //dump($return->action, \Layout::nowLang());
-//
-//            static::$_lang_routes[$return->action['prefix']] = $return->action;
-//        }
 
         return $return;
     }
