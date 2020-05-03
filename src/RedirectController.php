@@ -23,6 +23,6 @@ class RedirectController {
 
         $path = implode('/', $request->segments());
 
-        return redirect(\App::getLocale() . '/' . $path . $query);
+        return redirect(($request->cookie('lang') ?? \App::getLocale()) . '/' . $path . $query);
     }
 }
