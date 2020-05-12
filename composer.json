@@ -1,7 +1,7 @@
 {
     "name": "lar/roads",
     "description": "Laravel Application React Layout Roads",
-    "type": "library",
+    "type": "lar-library",
     "keywords": ["laravel", "application", "react", "layout", "roads"],
     "homepage": "https://bitbucket.org/lar-repo/roads",
     "license": "MIT",
