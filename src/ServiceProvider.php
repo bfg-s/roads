@@ -78,8 +78,6 @@ class ServiceProvider extends ServiceProviderIlluminate
             /** @var \Illuminate\Routing\Route $route */
             foreach ($routes["GET"] as $route) {
 
-                $route->middleware('exec');
-
                 if (config('layout.lang_mode') && isset($route->action['middleware']) && in_array('lang', $route->action['middleware']) && in_array('GET', $route->methods)) {
 
                     $pref = preg_replace("/^{$repl_lang}\//", '', $route->uri);
