@@ -51,10 +51,7 @@ class ServiceProvider extends ServiceProviderIlluminate
 
             if (is_file($file)) {
 
-                if (!$attributes) {
-
-                    $attributes = [];
-                }
+                if (!$attributes) { $attributes = []; }
 
                 if (!is_array($attributes) && is_string($attributes) && !empty($attributes)) {
 
