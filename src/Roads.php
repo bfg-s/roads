@@ -434,6 +434,18 @@ class Roads
     }
 
     /**
+     * Register a new GET component route with the router.
+     *
+     * @param  string  $uri
+     * @param $component
+     * @return \Illuminate\Routing\Route
+     */
+    public function component($uri, $component)
+    {
+        return $this->__manipulator('get', $uri, "\\Lar\\Roads\\ComponentController@" . $component);
+    }
+
+    /**
      * Register a new POST route with the router.
      *
      * @param  string  $uri
