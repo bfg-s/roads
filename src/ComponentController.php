@@ -24,7 +24,8 @@ class ComponentController {
 
         else if (class_exists("\\App\\Components\\{$method}")) {
 
-            return new ("\\App\\Components\\{$method}")(...$parameters);
+            $c = "\\App\\Components\\{$method}";
+            return new $c(...$parameters);
         }
 
         throw new \Exception("Component [{$method}] not found!");
