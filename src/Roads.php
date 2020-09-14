@@ -656,7 +656,7 @@ class Roads
 
                 $this->last_rout = $router;
 
-                custom_closure_call($closure, [
+                embedded_call($closure, [
                     'router' => $router,
                     'route' => $router,
                     'Road' => $this,
