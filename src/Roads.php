@@ -4,7 +4,6 @@ namespace Lar\Roads;
 
 use Illuminate\Routing\Router;
 use Illuminate\Routing\RouteRegistrar;
-use Lar\LServe\Server\TcpSender;
 
 /**
  * Class Road
@@ -71,24 +70,6 @@ class Roads
         }
 
         return $this;
-    }
-
-    /**
-     * Enable ws connect on routes
-     *
-     * @return Roads
-     */
-    public function ws()
-    {
-        if (TcpSender::ping()) {
-
-            return $this->middleware(['web', 'ws_user', 'lserve']);
-        }
-
-        else {
-
-            return $this;
-        }
     }
 
     /**
@@ -635,14 +616,14 @@ class Roads
 
     /**
      * @param \Closure|string|array $props
-     * @param \Closure|string|null $closure
+     * @param \Closure|string|null $call
      * @return Roads
      */
-    public function group($props, $closure = null)
+    public function group($props, $call = null)
     {
-        if ($props instanceof \Closure) { $closure = $props; $props = []; }
+        if (is_embedded_call($props)) { $call = $props; $props = []; }
 
-        if (is_string($props)) { $closure = $props; $props = []; }
+        if (is_string($props)) { $call = $props; $props = []; }
 
         if (isset($props['middleware']) && !is_array($props['middleware'])) { $props['middleware'] = [$props['middleware']]; }
 
@@ -650,29 +631,31 @@ class Roads
 
         static::$_tmp_attributes = [];
 
-        if ($closure instanceof \Closure) {
+        if (is_embedded_call($call)) {
 
-            \Route::group($props, function (Router $router) use ($closure) {
+            \Route::group($props, function (Router $router) use ($call) {
 
                 $this->last_rout = $router;
 
-                embedded_call($closure, [
-                    'router' => $router,
-                    'route' => $router,
-                    'Road' => $this,
-                    Router::class => $router,
-                    static::class => $this
-                ]);
+                call_user_func($call, $this);
+
+//                embedded_call($call, [
+//                    'router' => $router,
+//                    'route' => $router,
+//                    'Road' => $this,
+//                    Router::class => $router,
+//                    static::class => $this
+//                ]);
             });
         }
 
-        else if (is_string($closure)) {
+        else if (is_string($call)) {
 
             $_tmp = null;
 
             foreach ($props as $key => $prop) { if (!$_tmp) { $_tmp = \Route::$key($prop); } else { $_tmp = $_tmp->{$key}($prop); } }
 
-            if ($_tmp instanceof RouteRegistrar) { $_tmp->group($closure); }
+            if ($_tmp instanceof RouteRegistrar) { $_tmp->group($call); }
         }
 
         return $this;
