@@ -5,12 +5,12 @@ namespace Lar\Roads;
 use Illuminate\Http\Request;
 
 /**
- * Class RedirectController
+ * Class RedirectController.
  *
  * @package Lar\Roads
  */
-class RedirectController {
-
+class RedirectController
+{
     /**
      * @param  Request  $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
@@ -19,10 +19,10 @@ class RedirectController {
     {
         $query = $request->query();
 
-        $query = count($query) ? '' . http_build_query($query) : '';
+        $query = count($query) ? ''.http_build_query($query) : '';
 
         $path = implode('/', $request->segments());
 
-        return redirect(($request->cookie('lang') ?? \App::getLocale()) . '/' . $path . $query);
+        return redirect(($request->cookie('lang') ?? \App::getLocale()).'/'.$path.$query);
     }
 }

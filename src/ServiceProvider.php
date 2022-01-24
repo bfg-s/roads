@@ -6,7 +6,7 @@ use Illuminate\Support\ServiceProvider as ServiceProviderIlluminate;
 use Lar\Roads\Commands\MakeRoadCommand;
 
 /**
- * Class ServiceProvider
+ * Class ServiceProvider.
  *
  * @package Lar\Layout
  */
@@ -16,7 +16,7 @@ class ServiceProvider extends ServiceProviderIlluminate
      * @var array
      */
     protected $commands = [
-        MakeRoadCommand::class
+        MakeRoadCommand::class,
     ];
 
     /**
@@ -46,19 +46,20 @@ class ServiceProvider extends ServiceProviderIlluminate
         ], 'ljs-roads-config');
 
         foreach (config('roads') as $file => $attributes) {
-
-            $file = base_path($file . ".php");
+            $file = base_path($file.'.php');
 
             if (is_file($file)) {
+                if (! $attributes) {
+                    $attributes = [];
+                }
 
-                if (!$attributes) { $attributes = []; }
-
-                if (!is_array($attributes) && is_string($attributes) && !empty($attributes)) {
-
+                if (! is_array($attributes) && is_string($attributes) && ! empty($attributes)) {
                     $attributes = ['middleware' => $attributes];
                 }
 
-                if (!isset($attributes['namespace'])) { $attributes['namespace'] = 'App\Http\Controllers'; }
+                if (! isset($attributes['namespace'])) {
+                    $attributes['namespace'] = 'App\Http\Controllers';
+                }
 
                 \Road::middleware([])->__tmpAttribute(is_array($attributes) ? $attributes : [])->group($file);
             }
@@ -68,26 +69,21 @@ class ServiceProvider extends ServiceProviderIlluminate
 
         $created_routes = [];
 
-        if (isset($routes["GET"])) {
-
+        if (isset($routes['GET'])) {
             $repl_lang = \App::getLocale();
 
             /** @var \Illuminate\Routing\Route $route */
-            foreach ($routes["GET"] as $route) {
-
+            foreach ($routes['GET'] as $route) {
                 if (config('layout.lang_mode') && isset($route->action['middleware']) && in_array('lang', $route->action['middleware']) && in_array('GET', $route->methods)) {
-
                     $pref = preg_replace("/^{$repl_lang}\//", '', $route->uri);
 
                     $pref = empty($pref) ? '/' : $pref;
 
-                    if (!isset($created_routes[$pref])) {
-
+                    if (! isset($created_routes[$pref])) {
                         $created_routes[$pref] = $pref;
 
                         \Route::middleware(['web'])->get($pref, 'Lar\\Roads\\RedirectController@index');
                     }
-
                 }
             }
         }
@@ -120,4 +116,3 @@ class ServiceProvider extends ServiceProviderIlluminate
         }
     }
 }
-

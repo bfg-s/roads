@@ -3,12 +3,12 @@
 namespace Lar\Roads;
 
 /**
- * Class RedirectController
+ * Class RedirectController.
  *
  * @package Lar\Roads
  */
-class ComponentController {
-
+class ComponentController
+{
     /**
      * @param $method
      * @param $parameters
@@ -18,13 +18,10 @@ class ComponentController {
     public function __call($method, $parameters)
     {
         if (class_exists($method)) {
-
             return new $method(...$parameters);
-        }
-
-        else if (class_exists("\\App\\Components\\{$method}")) {
-
+        } elseif (class_exists("\\App\\Components\\{$method}")) {
             $c = "\\App\\Components\\{$method}";
+
             return new $c(...$parameters);
         }
 

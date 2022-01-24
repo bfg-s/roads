@@ -35,15 +35,14 @@ class MakeRoadCommand extends Command
         $name = str_replace(['-', '__'], '_', strtolower($name));
 
         $base_dir = $this->option('dir');
-        $base_dir = $base_dir ? trim($base_dir, "/") : 'routes';
+        $base_dir = $base_dir ? trim($base_dir, '/') : 'routes';
         $dir = base_path($base_dir);
 
-        if (!is_dir($dir)) {
-
+        if (! is_dir($dir)) {
             mkdir($dir, 0777, true);
         }
 
-        $file = "/" . trim($dir, "/") . "/{$name}.php";
+        $file = '/'.trim($dir, '/')."/{$name}.php";
 
         $file_data = <<<FILE
 <?php
@@ -59,12 +58,10 @@ Road::asx('{$name}')->group(function (Roads \$roads) {
 FILE;
 
         if (is_file($file)) {
-
-            if (!$this->confirm("File [{$file}] exists, rewrite him?", false)) {
-
+            if (! $this->confirm("File [{$file}] exists, rewrite him?", false)) {
                 $this->info('By!');
 
-                return ;
+                return;
             }
         }
 
@@ -74,6 +71,6 @@ FILE;
 
         CfgFile::open(config_path('roads.php'))->write("{$base_dir}/{$name}", 'web');
 
-        $this->info("Config file [".config_path('roads.php')."] updated!");
+        $this->info('Config file ['.config_path('roads.php').'] updated!');
     }
 }

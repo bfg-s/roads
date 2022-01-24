@@ -6,14 +6,14 @@ use Illuminate\Routing\Router;
 use Illuminate\Routing\RouteRegistrar;
 
 /**
- * Class Road
+ * Class Road.
  *
  * @package Lar\Roads
  */
 class Roads
 {
     /**
-     * Temp route attributes
+     * Temp route attributes.
      *
      * @var array
      */
@@ -37,7 +37,6 @@ class Roads
     public function layout(string $layout, bool $asx = false)
     {
         if ($asx) {
-
             $this->asx($layout);
         }
 
@@ -45,7 +44,7 @@ class Roads
     }
 
     /**
-     * Set equal name and prefix
+     * Set equal name and prefix.
      *
      * @param  string  $name
      * @param  bool  $last
@@ -57,7 +56,7 @@ class Roads
     }
 
     /**
-     * Enable language routes
+     * Enable language routes.
      *
      * @param  bool  $switcher
      * @return Roads
@@ -65,7 +64,6 @@ class Roads
     public function lang(bool $switcher = true)
     {
         if ($switcher) {
-
             $this->prefix(\Layout::nowLang())->middleware('lang');
         }
 
@@ -73,7 +71,7 @@ class Roads
     }
 
     /**
-     * Add getters to routes
+     * Add getters to routes.
      *
      * @param $gets
      * @param array $props
@@ -81,8 +79,7 @@ class Roads
      */
     public function gets($gets, ...$props)
     {
-        if (!is_array($gets)) {
-
+        if (! is_array($gets)) {
             $gets = func_get_args();
         }
 
@@ -92,7 +89,7 @@ class Roads
     }
 
     /**
-     * Set name of routes
+     * Set name of routes.
      *
      * @param  string  $name
      * @param  bool  $last
@@ -100,16 +97,15 @@ class Roads
      */
     public function as(string $name, bool $last = false)
     {
-        if(str_replace(['{','?','}'], '', $name) !== $name) {
-
+        if (str_replace(['{', '?', '}'], '', $name) !== $name) {
             return $this;
         }
 
-        return $this->__tmpAttribute(['as' => trim($name, '.') . (!$last ? '.' : '')]);
+        return $this->__tmpAttribute(['as' => trim($name, '.').(! $last ? '.' : '')]);
     }
 
     /**
-     * Set domain of routes
+     * Set domain of routes.
      *
      * @param string $domain
      * @return Roads
@@ -120,15 +116,14 @@ class Roads
     }
 
     /**
-     * Set route middleware
+     * Set route middleware.
      *
      * @param $middleware
      * @return Roads
      */
     public function middleware($middleware)
     {
-        if (!is_array($middleware)) {
-
+        if (! is_array($middleware)) {
             $middleware = func_get_args();
         }
 
@@ -136,7 +131,7 @@ class Roads
     }
 
     /**
-     * Set name of routes (as alias)
+     * Set name of routes (as alias).
      *
      * @param string $name
      * @return Roads
@@ -147,7 +142,7 @@ class Roads
     }
 
     /**
-     * Set namespace of routes
+     * Set namespace of routes.
      *
      * @param string $namespace
      * @return Roads
@@ -158,7 +153,7 @@ class Roads
     }
 
     /**
-     * Set route prefix
+     * Set route prefix.
      *
      * @param string $prefix
      * @return Roads
@@ -169,7 +164,7 @@ class Roads
     }
 
     /**
-     * Set route prefix
+     * Set route prefix.
      *
      * @param $where
      * @param array $props
@@ -181,7 +176,7 @@ class Roads
     }
 
     /**
-     * Set web middleware
+     * Set web middleware.
      *
      * @return Roads
      */
@@ -191,7 +186,7 @@ class Roads
     }
 
     /**
-     * Set auth middleware
+     * Set auth middleware.
      *
      * @param  array  $guards
      * @return Roads
@@ -199,13 +194,13 @@ class Roads
     public function auth(...$guards)
     {
         $add = implode(',', array_diff(func_get_args(), [null]));
-        $add = !empty($add) ? ":{$add}" : '';
+        $add = ! empty($add) ? ":{$add}" : '';
 
         return $this->middleware("auth{$add}");
     }
 
     /**
-     * Set auth middleware
+     * Set auth middleware.
      *
      * @param  null  $guard
      * @param  null  $field
@@ -214,13 +209,13 @@ class Roads
     public function auth_basic($guard = null, $field = null)
     {
         $add = implode(',', array_diff(func_get_args(), [null]));
-        $add = !empty($add) ? ":{$add}" : '';
+        $add = ! empty($add) ? ":{$add}" : '';
 
         return $this->middleware("auth.basic{$add}");
     }
 
     /**
-     * Set bindings middleware
+     * Set bindings middleware.
      *
      * @return Roads
      */
@@ -230,7 +225,7 @@ class Roads
     }
 
     /**
-     * Set cache.headers middleware
+     * Set cache.headers middleware.
      *
      * @param  array  $options
      * @return Roads
@@ -238,13 +233,13 @@ class Roads
     public function cache_headers($options = null)
     {
         $add = implode(',', array_diff(func_get_args(), [null]));
-        $add = !empty($add) ? ":{$add}" : '';
+        $add = ! empty($add) ? ":{$add}" : '';
 
         return $this->middleware("cache.headers{$add}");
     }
 
     /**
-     * Set can middleware
+     * Set can middleware.
      *
      * @param $ability
      * @param  array  $models
@@ -253,13 +248,13 @@ class Roads
     public function can($ability, ...$models)
     {
         $add = implode(',', array_diff(func_get_args(), [null]));
-        $add = !empty($add) ? ":{$add}" : '';
+        $add = ! empty($add) ? ":{$add}" : '';
 
         return $this->middleware("can{$add}");
     }
 
     /**
-     * Set guest middleware
+     * Set guest middleware.
      *
      * @return Roads
      */
@@ -269,7 +264,7 @@ class Roads
     }
 
     /**
-     * Set password.confirm middleware
+     * Set password.confirm middleware.
      *
      * @param  null  $redirectToRoute
      * @return Roads
@@ -277,13 +272,13 @@ class Roads
     public function password_confirm($redirectToRoute = null)
     {
         $add = implode(',', array_diff(func_get_args(), [null]));
-        $add = !empty($add) ? ":{$add}" : '';
+        $add = ! empty($add) ? ":{$add}" : '';
 
         return $this->middleware("password.confirm{$add}");
     }
 
     /**
-     * Set guest middleware
+     * Set guest middleware.
      *
      * @return Roads
      */
@@ -293,7 +288,7 @@ class Roads
     }
 
     /**
-     * Set throttle middleware
+     * Set throttle middleware.
      *
      * @param  null  $maxAttempts
      * @param  null  $decayMinutes
@@ -303,13 +298,13 @@ class Roads
     public function throttle($maxAttempts = null, $decayMinutes = null, $prefix = null)
     {
         $add = implode(',', array_diff(func_get_args(), [null]));
-        $add = !empty($add) ? ":{$add}" : '';
+        $add = ! empty($add) ? ":{$add}" : '';
 
         return $this->middleware("throttle{$add}");
     }
 
     /**
-     * Set verified middleware
+     * Set verified middleware.
      *
      * @param  null  $redirectToRoute
      * @return Roads
@@ -317,13 +312,13 @@ class Roads
     public function verified($redirectToRoute = null)
     {
         $add = implode(',', array_diff(func_get_args(), [null]));
-        $add = !empty($add) ? ":{$add}" : '';
+        $add = ! empty($add) ? ":{$add}" : '';
 
         return $this->middleware("verified{$add}");
     }
 
     /**
-     * Set cors middleware
+     * Set cors middleware.
      *
      * @return Roads
      */
@@ -333,7 +328,7 @@ class Roads
     }
 
     /**
-     * Set api middleware
+     * Set api middleware.
      *
      * @return Roads
      */
@@ -343,7 +338,7 @@ class Roads
     }
 
     /**
-     * Set web.encrypt_cookies middleware
+     * Set web.encrypt_cookies middleware.
      *
      * @return Roads
      */
@@ -353,7 +348,7 @@ class Roads
     }
 
     /**
-     * Set web.queued_cookies middleware
+     * Set web.queued_cookies middleware.
      *
      * @return Roads
      */
@@ -363,7 +358,7 @@ class Roads
     }
 
     /**
-     * Set web.start_session middleware
+     * Set web.start_session middleware.
      *
      * @return Roads
      */
@@ -373,7 +368,7 @@ class Roads
     }
 
     /**
-     * Set web.share_errors middleware
+     * Set web.share_errors middleware.
      *
      * @return Roads
      */
@@ -383,7 +378,7 @@ class Roads
     }
 
     /**
-     * Set web.verify_csrf middleware
+     * Set web.verify_csrf middleware.
      *
      * @return Roads
      */
@@ -393,7 +388,7 @@ class Roads
     }
 
     /**
-     * Set web.substitute_bindings middleware
+     * Set web.substitute_bindings middleware.
      *
      * @return Roads
      */
@@ -423,7 +418,7 @@ class Roads
      */
     public function component($uri, $component)
     {
-        return $this->__manipulator('get', $uri, "\\Lar\\Roads\\ComponentController@" . $component);
+        return $this->__manipulator('get', $uri, '\\Lar\\Roads\\ComponentController@'.$component);
     }
 
     /**
@@ -621,20 +616,26 @@ class Roads
      */
     public function group($props, $call = null)
     {
-        if (is_embedded_call($props)) { $call = $props; $props = []; }
+        if (is_embedded_call($props)) {
+            $call = $props;
+            $props = [];
+        }
 
-        if (is_string($props)) { $call = $props; $props = []; }
+        if (is_string($props)) {
+            $call = $props;
+            $props = [];
+        }
 
-        if (isset($props['middleware']) && !is_array($props['middleware'])) { $props['middleware'] = [$props['middleware']]; }
+        if (isset($props['middleware']) && ! is_array($props['middleware'])) {
+            $props['middleware'] = [$props['middleware']];
+        }
 
         $props = array_merge_recursive(static::$_tmp_attributes, $props);
 
         static::$_tmp_attributes = [];
 
         if (is_embedded_call($call)) {
-
             \Route::group($props, function (Router $router) use ($call) {
-
                 $this->last_rout = $router;
 
                 call_user_func($call, $this);
@@ -647,15 +648,20 @@ class Roads
 //                    static::class => $this
 //                ]);
             });
-        }
-
-        else if (is_string($call)) {
-
+        } elseif (is_string($call)) {
             $_tmp = null;
 
-            foreach ($props as $key => $prop) { if (!$_tmp) { $_tmp = \Route::$key($prop); } else { $_tmp = $_tmp->{$key}($prop); } }
+            foreach ($props as $key => $prop) {
+                if (! $_tmp) {
+                    $_tmp = \Route::$key($prop);
+                } else {
+                    $_tmp = $_tmp->{$key}($prop);
+                }
+            }
 
-            if ($_tmp instanceof RouteRegistrar) { $_tmp->group($call); }
+            if ($_tmp instanceof RouteRegistrar) {
+                $_tmp->group($call);
+            }
         }
 
         return $this;
@@ -670,22 +676,18 @@ class Roads
     public function auth_routes(array $options = [])
     {
         if ($this->last_rout) {
-
             $this->last_rout->auth($options);
-        }
-
-        else {
-
+        } else {
             \Route::auth($options);
         }
 
         return $this;
     }
 
-    static $_lang_routes = [];
+    public static $_lang_routes = [];
 
     /**
-     * Register a new route
+     * Register a new route.
      *
      * @param  string  $method
      * @param  array  $props
@@ -695,12 +697,21 @@ class Roads
     {
         $_tmp = null;
 
-        foreach (static::$_tmp_attributes as $key => $prop) { if (!$_tmp) { if (!$this->last_rout) { $_tmp = \Route::$key($prop); } else { $_tmp = $this->last_rout->$key($prop); } } else { $_tmp = $_tmp->{$key}($prop); } }
+        foreach (static::$_tmp_attributes as $key => $prop) {
+            if (! $_tmp) {
+                if (! $this->last_rout) {
+                    $_tmp = \Route::$key($prop);
+                } else {
+                    $_tmp = $this->last_rout->$key($prop);
+                }
+            } else {
+                $_tmp = $_tmp->{$key}($prop);
+            }
+        }
 
         static::$_tmp_attributes = [];
 
         if ($_tmp instanceof RouteRegistrar) {
-
             return $_tmp->{$method}(...$props);
         }
 
@@ -716,39 +727,22 @@ class Roads
     public function __tmpAttribute(array $attributes)
     {
         foreach ($attributes as $key => $attribute) {
-
-            if (!isset(static::$_tmp_attributes[$key])) {
-
+            if (! isset(static::$_tmp_attributes[$key])) {
                 static::$_tmp_attributes[$key] = $attribute;
-            }
-
-            else {
-
+            } else {
                 if ($key === 'middleware') {
-
                     static::$_tmp_attributes[$key] = array_merge(static::$_tmp_attributes[$key], (is_array($attribute) ? $attribute : [$attribute]));
-                }
-
-                else if ($key === 'as') {
-
+                } elseif ($key === 'as') {
                     static::$_tmp_attributes[$key] .= ".{$attribute}";
-                }
-
-                else if ($key === 'namespace') {
-
+                } elseif ($key === 'namespace') {
                     static::$_tmp_attributes[$key] .= "\\{$attribute}";
-                }
+                } elseif ($key === 'prefix') {
+                    if (is_array(static::$_tmp_attributes[$key])) {
+                        dd(static::$_tmp_attributes[$key], $attribute);
+                    }
 
-
-                else if ($key === 'prefix') {
-
-                    if (is_array(static::$_tmp_attributes[$key])) { dd(static::$_tmp_attributes[$key], $attribute); }
-                    
                     static::$_tmp_attributes[$key] .= "/{$attribute}";
-                }
-
-                else {
-
+                } else {
                     static::$_tmp_attributes[$key] = $attribute;
                 }
             }
