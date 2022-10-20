@@ -11,7 +11,7 @@ if (! function_exists('last_namespace_element')) {
      */
     function last_namespace_element(string $namespace, int $level = 1) : string
     {
-        return \Lar\EntityCarrier\Core\Entities\NamespaceEntity::lastSegment($namespace, $level);
+        return Bfg\Entity\Core\Entities\NamespaceEntity::lastSegment($namespace, $level);
     }
 }
 
@@ -27,6 +27,6 @@ if (! function_exists('body_namespace_element')) {
      */
     function body_namespace_element(string $namespace, int $level = 1, string $delimiter = '\\') : string
     {
-        return \Lar\EntityCarrier\Core\Entities\NamespaceEntity::bodySegment($namespace, $level);
+        return Bfg\Entity\Core\Entities\NamespaceEntity::bodySegment($namespace, $level);
     }
 }
