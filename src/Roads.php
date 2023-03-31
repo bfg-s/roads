@@ -64,7 +64,7 @@ class Roads
     public function lang(bool $switcher = true)
     {
         if ($switcher) {
-            $this->prefix(\Layout::nowLang())->middleware('lang');
+            $this->prefix(\Lar\Layout\Facade::nowLang())->middleware('lang');
         }
 
         return $this;
